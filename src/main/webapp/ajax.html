@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ajax Post 请求验证用户名是否可用</title>
+</head>
+<body>
+<script type="text/javascript">
+    window.onload = function () {
+        document.getElementById("username").onblur = function () {
+            var xhr = new XMLHttpRequest()
+            xhr.onreadystatechange = function () {
+                if (this.readyState == 4) {
+                    if (this.status == 200) {
+                        document.getElementById("tipMsg").innerHTML = this.responseText
+                    }else{
+                        alert(this.status)
+                    }
+                }
+            }
+            xhr.open("POST", "/ajax/ajaxrequest4", true)
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+            var username = document.getElementById("username").value
+            xhr.send("username="+username) //发送数据 直接发送张三 "id="+id
+        }
+    }
+</script>
+
+用户名: <input type="text" id="username" name="username" >
+<span id="tipMsg"></span>
+</body>
+</html>
